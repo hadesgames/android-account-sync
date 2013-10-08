@@ -8,15 +8,21 @@ object AndroidBuild extends Build {
     "org.scaloid" %% "scaloid" % "2.3-8",
     "uk.co.bigbeeconsultants" %% "bee-client" % "0.21.+",
     "se.fishtank" %% "css-selectors-scala" % "0.1.3",
-    "org.ccil.cowan.tagsoup" % "tagsoup" % "1.2"
+    "org.ccil.cowan.tagsoup" % "tagsoup" % "1.2" % "provided",
+    "org.macroid" %% "macroid" % "1.0.0-RC1",
+    "io.dylemma" %% "scala-frp" % "1.0"
   )
 
   val preloads = Seq(
-    filterModule("org.scaloid" % "scaloid_2.10" % "2.3-8" )
+    filterModule("org.scaloid" % "scaloid_2.10" % "2.3-8" ),
+    filterModule("org.scalaz" % "scalaz-core_2.10" % "7.0.3"),
+    filterModule("org.scala-lang" % "scala-reflect" % "2.10.3-RC2")
   )
 
   val customResolvers = Seq(
-    "Big Bee Consultants" at "http://repo.bigbeeconsultants.co.uk/repo"
+    "Maven Central Server" at "http://repo1.maven.org/maven2",
+    "Big Bee Consultants" at "http://repo.bigbeeconsultants.co.uk/repo",
+    "JCenter" at "http://jcenter.bintray.com"
   )
 
   val globalSettings = Seq(
@@ -28,7 +34,8 @@ object AndroidBuild extends Build {
     keyalias := "change-me",
     libraryDependencies ++= dependencies,
     preloadFilters ++= preloads,
-    resolvers ++= customResolvers
+    resolvers ++= customResolvers,
+    dxMemory := "-JXmx3096m"
   )
 
   lazy val main = AndroidProject(
