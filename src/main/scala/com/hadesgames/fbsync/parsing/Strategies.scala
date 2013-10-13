@@ -4,7 +4,7 @@ import uk.co.bigbeeconsultants.http.header.{CookieKey, CookieJar}
 import uk.co.bigbeeconsultants.http.request.RequestBody
 import uk.co.bigbeeconsultants.http.toURL
 import se.fishtank.css.selectors.Selectors._
-import com.hadesgames.fbsync.lib.HandlesErrors
+import com.hadesgames.fbsync.util.HandlesErrors
 
 object Strategies extends HandlesErrors{
   val loginURL = "https://m.facebook.com/login.php"

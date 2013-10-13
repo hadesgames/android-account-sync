@@ -10,26 +10,30 @@ object AndroidBuild extends Build {
     "se.fishtank" %% "css-selectors-scala" % "0.1.3",
     "org.ccil.cowan.tagsoup" % "tagsoup" % "1.2" % "provided",
     "org.macroid" %% "macroid" % "1.0.0-RC1",
-    "io.dylemma" %% "scala-frp" % "1.0"
+    "io.dylemma" %% "scala-frp" % "1.0",
+    "play" %% "play-json" % "2.2-SNAPSHOT"
   )
 
   val preloads = Seq(
     filterModule("org.scaloid" % "scaloid_2.10" % "2.3-8" ),
     filterModule("org.scalaz" % "scalaz-core_2.10" % "7.0.3"),
+    filterModule("org.macroid" % "macroid_2.10" % "1.0.0-RC1"),
     filterModule("org.scala-lang" % "scala-reflect" % "2.10.3-RC2")
   )
 
   val customResolvers = Seq(
     "Maven Central Server" at "http://repo1.maven.org/maven2",
     "Big Bee Consultants" at "http://repo.bigbeeconsultants.co.uk/repo",
-    "JCenter" at "http://jcenter.bintray.com"
+    "JCenter" at "http://jcenter.bintray.com",
+    "Mandubian repository snapshots" at "https://github.com/mandubian/mandubian-mvn/raw/master/snapshots/",
+    "Mandubian repository releases" at "https://github.com/mandubian/mandubian-mvn/raw/master/releases/"
   )
 
   val globalSettings = Seq(
     name := "FbSync",
     version := "0.1",
     versionCode := 0,
-    scalaVersion := "2.10.2",
+    scalaVersion := "2.10.3",
     platformName := "android-18",
     keyalias := "change-me",
     libraryDependencies ++= dependencies,
@@ -41,7 +45,7 @@ object AndroidBuild extends Build {
   lazy val main = AndroidProject(
     "main",
     file("."),
-    settings=globalSettings
+    settings=globalSettings ++ net.virtualvoid.sbt.graph.Plugin.graphSettings
   )
 
   val worksheetSettings = Seq(

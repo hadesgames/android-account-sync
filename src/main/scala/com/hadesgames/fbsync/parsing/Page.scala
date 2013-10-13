@@ -1,10 +1,10 @@
 package com.hadesgames.fbsync.parsing
 
 import uk.co.bigbeeconsultants.http.header.CookieJar
-import com.hadesgames.fbsync.lib.HandlesErrors
 import uk.co.bigbeeconsultants.http.toURL
 import scala.xml.XML
 import se.fishtank.css.selectors.Selectors._
+import com.hadesgames.fbsync.util.HandlesErrors
 
 case class PageMetadata(cookies: CookieJar)
 
