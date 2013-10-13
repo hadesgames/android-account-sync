@@ -21,7 +21,6 @@ import scala.Some
 import org.scaloid.common.LoggerTag
 
 class MainActivity extends SActivity with LayoutDsl with Tweaks with HandlesErrors{
-  override implicit val loggerTag = LoggerTag("FbSync")
   onCreate {
     setContentView(mainView)
     pref = Preferences()
@@ -35,6 +34,9 @@ class MainActivity extends SActivity with LayoutDsl with Tweaks with HandlesErro
     }.flatMap(identity)
 
     auth = result
+    if (auth.isEmpty) {
+      switch
+    }
   }
 
   var pref: Preferences = _
@@ -42,17 +44,6 @@ class MainActivity extends SActivity with LayoutDsl with Tweaks with HandlesErro
   var passSlot = slot[EditText]
 
   var auth: Option[CookieJar] = None
-  /*
-  def authenticate {
-    for  {
-      email <- emailSlot
-      pass <- passSlot
-    } {
-      future {
-        auth = Strategies.authentinticate(email.getText.toString, pass.getText.toString)
-      }
-    }
-  }*/
 
   def authenticate {
     toast(Preferences().auth(""))

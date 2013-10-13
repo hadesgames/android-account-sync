@@ -18,7 +18,6 @@ import uk.co.bigbeeconsultants.http.header.CookieJar
 import com.hadesgames.fbsync.util.Serializers._
 
 class FacebookLoginActivity extends SActivity with LayoutDsl with Tweaks with HandlesErrors{
-  override implicit val loggerTag = LoggerTag("FbSync")
   var emailSlot = slot[EditText]
   var passSlot = slot[EditText]
   onCreate {

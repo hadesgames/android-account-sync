@@ -1,9 +1,9 @@
 package com.hadesgames.fbsync.util
 
-import org.scaloid.common.{LoggerTag, Logger}
+import org.scaloid.common.{TagUtil, LoggerTag, Logger}
 
-trait HandlesErrors extends Logger {
-  implicit val loggerTag = LoggerTag("FbSync")
+trait HandlesErrors extends Logger with TagUtil {
+  override implicit val loggerTag = LoggerTag("FbSync")
   def tryOrLog[T](body: => T): Option[T] = {
     try {
       Some(body)
