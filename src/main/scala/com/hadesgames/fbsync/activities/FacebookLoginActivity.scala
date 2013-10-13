@@ -46,17 +46,15 @@ class FacebookLoginActivity extends SActivity with LayoutDsl with Tweaks with Ha
     for  {
       email <- emailSlot
       pass <- passSlot
-    } {
-      future {
-        tryOrLog {
-        val auth = Strategies.authentinticate(email.getText.toString, pass.getText.toString)
-        val pref = Preferences()
+    } future(tryOrLog {
+      val auth = Strategies.authentinticate(email.getText.toString, pass.getText.toString)
+      val pref = Preferences()
 
-
-        pref.auth = Json.stringify(Json.toJson[Option[CookieJar]](auth))
-        finish()
-        }
+      auth.map { (jar) =>
+        pref.auth = Json.stringify(Json.toJson[CookieJar](jar))
       }
-    }
+
+      finish()
+    })
   }
 }

@@ -29,11 +29,12 @@ class MainActivity extends SActivity with LayoutDsl with Tweaks with HandlesErro
 
   onStart {
 
-    //auth = tryOrLog {pref.auth("").unpickle[Option[CookieJar]].get}
-    tryOrLog {
-    val result: JsResult[Option[CookieJar]] = Json.fromJson[Option[CookieJar]](Json.parse(pref.auth("{\"cookies\":[]}")))
-    auth = result.getOrElse(None)
-    }
+    val result = tryOrLog {
+      val strData: String = pref.auth("")
+      Json.fromJson[CookieJar](Json.parse(strData)).asOpt
+    }.flatMap(identity)
+
+    auth = result
   }
 
   var pref: Preferences = _
